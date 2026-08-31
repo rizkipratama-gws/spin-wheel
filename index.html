@@ -3,116 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wheel Spinner Absen & Soal</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 { color: #333; }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-        }
-        #wheel-box {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 20px 0;
-            padding: 20px;
-            background: #eef2f3;
-            border-radius: 8px;
-            min-height: 40px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover { background-color: #218838; }
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #007bff;
-            font-weight: bold;
-        }
-    </style>
+    <title>Dual Wheel Spinner - Absen & Soal</title>
+    <!-- Hubungkan ke file CSS eksternal -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>Spin Absen & Soal</h1>
-        <p>Putar roda untuk mencocokkan absen dengan soal secara berurutan.</p>
-        
-        <div id="wheel-box">Klik Putar di Bawah</div>
-        <button id="spin-btn" onclick="putarRoda()">Putar Roda</button>
-        
-        <div id="result"></div>
+    <div class="main-container">
+        <h1>🎯 Spin Undian Absen & Soal</h1>
+        <p class="subtitle">Sistem otomatis: Absen urut, Soal otomatis menyesuaikan.</p>
+
+        <div class="wheels-wrapper">
+            <!-- Roda 1: Absen -->
+            <div class="wheel-card">
+                <h2>Roda Absen</h2>
+                <div id="wheel-absen" class="wheel-box">Klik Putar</div>
+            </div>
+
+            <!-- Roda 2: Soal -->
+            <div class="wheel-card">
+                <h2>Roda Soal</h2>
+                <div id="wheel-soal" class="wheel-box">Klik Putar</div>
+            </div>
+        </div>
+
+        <!-- Tombol Utama -->
+        <button id="spin-btn" onclick="jalankanSpin()">Putar Kedua Roda!</button>
+
+        <!-- Kotak Hasil Akhir -->
+        <div id="result-box" class="hidden">
+            <h3>Hasil Terpilih:</h3>
+            <p id="result-text"></p>
+        </div>
     </div>
 
-    <script>
-        const dataSiswa = [
-            { absen: 1, nama: "Siswa 01" }, { absen: 2, nama: "Siswa 02" },
-            { absen: 3, nama: "Siswa 03" }, { absen: 4, nama: "Siswa 04" },
-            { absen: 5, nama: "Siswa 05" }, { absen: 6, nama: "Siswa 06" },
-            { absen: 7, nama: "Siswa 07" }, { absen: 8, nama: "Siswa 08" },
-            { absen: 9, nama: "Siswa 09" }, { absen: 10, nama: "Siswa 10" },
-            { absen: 11, nama: "Siswa 11" }, { absen: 12, nama: "Siswa 12" },
-            { absen: 13, nama: "Siswa 13" }, { absen: 14, nama: "Siswa 14" },
-            { absen: 15, nama: "Siswa 15" }, { absen: 16, nama: "Siswa 16" },
-            { absen: 17, nama: "Siswa 17" }, { absen: 18, nama: "Siswa 18" },
-            { absen: 19, nama: "Siswa 19" }, { absen: 20, nama: "Siswa 20" },
-            { absen: 21, nama: "Siswa 21" }, { absen: 22, nama: "Siswa 22" },
-            { absen: 23, nama: "Siswa 23" }, { absen: 24, nama: "Siswa 24" },
-            { absen: 25, nama: "Siswa 25" }, { absen: 26, nama: "Siswa 26" },
-            { absen: 27, nama: "Siswa 27" }, { absen: 28, nama: "Siswa 28" },
-            { absen: 29, nama: "Siswa 29" }, { absen: 30, nama: "Siswa 30" }
-        ];
-
-        let currentIndex = 0;
-
-        function putarRoda() {
-            const wheelBox = document.getElementById("wheel-box");
-            const resultDiv = document.getElementById("result");
-            const btn = document.getElementById("spin-btn");
-
-            if (currentIndex >= dataSiswa.length) {
-                wheelBox.innerHTML = "Selesai!";
-                resultDiv.innerHTML = "Semua absen sudah mendapatkan soal!";
-                btn.disabled = true;
-                return;
-            }
-
-            let counter = 0;
-            btn.disabled = true;
-            let interval = setInterval(() => {
-                let randomacak = Math.floor(Math.random() * dataSiswa.length);
-                wheelBox.innerHTML = `Memutar... Absen ${dataSiswa[randomacak].absen}`;
-                counter++;
-                
-                if (counter > 15) {
-                    clearInterval(interval);
-                    
-                    let siswaAktif = dataSiswa[currentIndex];
-                    let nomorSoal = currentIndex + 1;
-                    
-                    wheelBox.innerHTML = `Absen ${siswaAktif.absen} (${siswaAktif.nama})`;
-                    resultDiv.innerHTML = `🎯 Mendapatkan: Soal No. ${nomorSoal}`;
-                    
-                    currentIndex++;
-                    btn.disabled = false;
-                }
-            }, 100);
-        }
-    </script>
+    <!-- Hubungkan ke file JavaScript eksternal -->
+    <script src="script.js"></script>
 </body>
 </html>
