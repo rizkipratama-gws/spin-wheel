@@ -1,72 +1,368 @@
-// Data settingan terstruktur (Absen 1 = Soal 1, dst sampai 30)
-const dataSiswa = [
-    { absen: 1, nama: "Siswa 01" }, { absen: 2, nama: "Siswa 02" },
-    { absen: 3, nama: "Siswa 03" }, { absen: 4, nama: "Siswa 04" },
-    { absen: 5, nama: "Siswa 05" }, { absen: 6, nama: "Siswa 06" },
-    { absen: 7, nama: "Siswa 07" }, { absen: 8, nama: "Siswa 08" },
-    { absen: 9, nama: "Siswa 09" }, { absen: 10, nama: "Siswa 10" },
-    { absen: 11, nama: "Siswa 11" }, { absen: 12, nama: "Siswa 12" },
-    { absen: 13, nama: "Siswa 13" }, { absen: 14, nama: "Siswa 14" },
-    { absen: 15, nama: "Siswa 15" }, { absen: 16, nama: "Siswa 16" },
-    { absen: 17, nama: "Siswa 17" }, { absen: 18, nama: "Siswa 18" },
-    { absen: 19, nama: "Siswa 19" }, { absen: 20, nama: "Siswa 20" },
-    { absen: 21, nama: "Siswa 21" }, { absen: 22, nama: "Siswa 22" },
-    { absen: 23, nama: "Siswa 23" }, { absen: 24, nama: "Siswa 24" },
-    { absen: 25, nama: "Siswa 25" }, { absen: 26, nama: "Siswa 26" },
-    { absen: 27, nama: "Siswa 27" }, { absen: 28, nama: "Siswa 28" },
-    { absen: 29, nama: "Siswa 29" }, { absen: 30, nama: "Siswa 30" }
+// --- DATA KELAS ANDA ---
+const KELAS_TEAMS = [
+    { abbr: "Amanda", name: "Amanda Rahmawaty" },
+    { abbr: "Arika", name: "Arika Pratiwi" },
+    { abbr: "Aureliya", name: "Aureliya Faezabariza" },
+    { abbr: "Calista", name: "Calista Kaira Anwar" },
+    { abbr: "Cindy", name: "Cindy Zayla Shalsabila" },
+    { abbr: "Dinda A.", name: "Dinda Aisyah Harum Minanti" },
+    { abbr: "Dinda A.H.", name: "Dinda Amalia Husna" },
+    { abbr: "Eri", name: "Eri Rahma Putri" },
+    { abbr: "Hary", name: "Hary Hardianto" },
+    { abbr: "Karena", name: "Karena Cantika Kirani" },
+    { abbr: "Keisha", name: "Keisha Sefinah Raihan" },
+    { abbr: "Kiara", name: "Kiara Melva Karenina" },
+    { abbr: "Laeli", name: "Laeli Nurhasanah" },
+    { abbr: "Lindiyani", name: "Lindiyani Ariezka" },
+    { abbr: "M. Rasya", name: "Mohammad Rasya Pradita" },
+    { abbr: "M. Fathir", name: "Muhammad Fathir Afrizal" },
+    { abbr: "M. Iqbal", name: "Muhammad Iqbal Musyafa" },
+    { abbr: "Nabilah", name: "Nabilah Fikra" },
+    { abbr: "Nadzwa", name: "Nadzwa Sihab" },
+    { abbr: "Nela", name: "Nela Nur' Indah" },
+    { abbr: "Nessa", name: "Nessa Aura Livia" },
+    { abbr: "Nesya", name: "Nesya Citra Dzakiiah" },
+    { abbr: "Neza", name: "Neza Putri Oktavia" },
+    { abbr: "Nisrina", name: "Nisrina Maulida" },
+    { abbr: "Nurwakhidah", name: "Nurwakhidah Wajihah Putriyana" },
+    { abbr: "Prishilia", name: "Prishilia" },
+    { abbr: "Putri", name: "Putri Ayu Sulialmira" },
+    { abbr: "Rina", name: "Rina Syifani Jannah" },
+    { abbr: "Riska", name: "Riska Ayunita" },
+    { abbr: "Rizki", name: "Rizki Pratama" }
 ];
 
-let currentIndex = 0; // Penanda urutan absen saat ini
+const KELAS_NUMBERS = [
+    { abbr: "27", name: "Nomor 27" }, { abbr: "11", name: "Nomor 11" },
+    { abbr: "8", name: "Nomor 8" }, { abbr: "3", name: "Nomor 3" },
+    { abbr: "1", name: "Nomor 1" }, { abbr: "20", name: "Nomor 20" },
+    { abbr: "2", name: "Nomor 2" }, { abbr: "22", name: "Nomor 22" },
+    { abbr: "4", name: "Nomor 4" }, { abbr: "17", name: "Nomor 17" },
+    { abbr: "23", name: "Nomor 23" }, { abbr: "16", name: "Nomor 16" },
+    { abbr: "9", name: "Nomor 9" }, { abbr: "15", name: "Nomor 15" },
+    { abbr: "28", name: "Nomor 28" }, { abbr: "5", name: "Nomor 5" },
+    { abbr: "18", name: "Nomor 18" }, { abbr: "29", name: "Nomor 29" },
+    { abbr: "6", name: "Nomor 6" }, { abbr: "14", name: "Nomor 14" },
+    { abbr: "21", name: "Nomor 21" }, { abbr: "13", name: "Nomor 13" },
+    { abbr: "10", name: "Nomor 10" }, { abbr: "12", name: "Nomor 12" },
+    { abbr: "7", name: "Nomor 7" }, { abbr: "26", name: "Nomor 26" },
+    { abbr: "24", name: "Nomor 24" }, { abbr: "19", name: "Nomor 19" },
+    { abbr: "30", name: "Nomor 30" }, { abbr: "25", name: "Nomor 25" }
+];
 
-function jalankanSpin() {
-    const wheelAbsen = document.getElementById("wheel-absen");
-    const wheelSoal = document.getElementById("wheel-soal");
-    const spinBtn = document.getElementById("spin-btn");
-    const resultBox = document.getElementById("result-box");
-    const resultText = document.getElementById("result-text");
+const TEAM_MAP = {
+    NFL: [{ abbr: "ARI", name: "Arizona Cardinals" }, { abbr: "ATL", name: "Atlanta Falcons" }, { abbr: "BAL", name: "Baltimore Ravens" }],
+    NBA: [{ abbr: "ATL", name: "Atlanta Hawks" }, { abbr: "BOS", name: "Boston Celtics" }, { abbr: "BKN", name: "Brooklyn Nets" }],
+    MLB: [{ abbr: "ARI", name: "Arizona Diamondbacks" }, { abbr: "ATL", name: "Atlanta Braves" }],
+    NHL: [{ abbr: "ANA", name: "Anaheim Ducks" }, { abbr: "ARI", name: "Arizona Coyotes" }],
+    MLS: [{ abbr: "ATL", name: "Atlanta United FC" }, { abbr: "AUS", name: "Austin FC" }]
+};
 
-    // Cek jika sudah mencapai siswa ke-30
-    if (currentIndex >= dataSiswa.length) {
-        wheelAbsen.innerHTML = "Habis";
-        wheelSoal.innerHTML = "Habis";
-        spinBtn.disabled = true;
-        resultText.innerHTML = "Semua siswa sudah mendapatkan bagian soal masing-masing!";
-        resultBox.classList.remove("hidden");
+// --- CORE STATE ---
+let teamNames = [];
+let numberNames = [];
+let isSpinning1 = false;
+let isSpinning2 = false;
+let currentLeagueKey = "Custom"; 
+
+const canvas1 = document.getElementById('wheelCanvas1');
+const ctx1 = canvas1.getContext('2d');
+const canvas2 = document.getElementById('wheelCanvas2');
+const ctx2 = canvas2.getContext('2d');
+
+let startAngle1 = 0;
+let startAngle2 = 0;
+let spinTimeout1 = null;
+let spinTimeout2 = null;
+
+const wheelColors = ["#0366d6", "#8BC34A", "#FF9800", "#E91E63", "#4A148C", "#FFEB3B", "#3F51B5", "#F44336", "#00BCD4", "#2c974b"];
+
+function drawWheel(canvas, ctx, names, startAngle, colors) {
+    const currentRadius = canvas.width / 2;
+    const diameter = canvas.width;
+    ctx.clearRect(0, 0, diameter, diameter);
+    if (names.length === 0) {
+        ctx.fillStyle = '#cc5555';
+        ctx.font = 'bold 24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('List is Empty!', currentRadius, currentRadius);
         return;
     }
-
-    spinBtn.disabled = true;
-    resultBox.classList.add("hidden");
-
-    let counter = 0;
-    // Efek animasi putar bersamaan pada kedua kotak
-    let interval = setInterval(() => {
-        let randAbsen = Math.floor(Math.random() * dataSiswa.length);
-        let randSoal = Math.floor(Math.random() * 30) + 1;
-
-        wheelAbsen.innerHTML = `Absen ${dataSiswa[randAbsen].absen}`;
-        wheelSoal.innerHTML = `Soal No. ${randSoal}`;
+    const arc = Math.PI / (names.length / 2);
+    for(let i = 0; i < names.length; i++) {
+        const item = names[i];
+        const angle = startAngle + i * arc;
+        const textToDisplay = item.abbr;
+        const fillColor = colors[i % colors.length];
         
-        counter++;
-        
-        // Berhenti setelah 20 siklus kedipan (animasi putar)
-        if (counter > 20) {
-            clearInterval(interval);
+        ctx.fillStyle = fillColor;
+        ctx.beginPath();
+        ctx.arc(currentRadius, currentRadius, currentRadius - 10, angle, angle + arc, false);
+        ctx.arc(currentRadius, currentRadius, 0, angle + arc, angle, true);
+        ctx.fill();
 
-            // Ambil data asli sesuai urutan (settingan)
-            let siswaAktif = dataSiswa[currentIndex];
-            let nomorSoalSet = currentIndex + 1; // Absen 1 -> Soal 1
-
-            // Tampilkan hasil akhir yang akurat
-            wheelAbsen.innerHTML = `Absen ${siswaAktif.absen}<br><small>${siswaAktif.nama}</small>`;
-            wheelSoal.innerHTML = `Soal No. ${nomorSoalSet}`;
-
-            resultText.innerHTML = `Absen ${siswaAktif.absen} (${siswaAktif.nama}) mendapatkan Soal No. ${nomorSoalSet}`;
-            resultBox.classList.remove("hidden");
-
-            currentIndex++; // Geser ke absen berikutnya untuk putaran selanjutnya
-            spinBtn.disabled = false;
-        }
-    }, 80);
+        ctx.save();
+        ctx.fillStyle = 'white';
+        ctx.translate(currentRadius + Math.cos(angle + arc / 2) * (currentRadius - 70),
+                      currentRadius + Math.sin(angle + arc / 2) * (currentRadius - 70));
+        ctx.rotate(angle + arc / 2 + Math.PI / 2);
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center'; 
+        ctx.fillText(textToDisplay, 0, 0);
+        ctx.restore();
+    }
+    // Draw Pointer 
+    ctx.fillStyle = "#333";
+    ctx.beginPath();
+    ctx.moveTo(currentRadius - 15, 0);
+    ctx.lineTo(currentRadius + 15, 0);
+    ctx.lineTo(currentRadius, 30);
+    ctx.fill();
 }
+
+function spinWheels() {
+    if (isSpinning1 || isSpinning2) return;
+    if (teamNames.length === 0 || numberNames.length === 0) {
+        showModal('Error', 'One or both lists are empty! Please add items or load a league.');
+        return;
+    }
+    toggleInputs(false);
+    spinWheel1();
+    spinWheel2();
+}
+
+function spinWheel1() {
+    isSpinning1 = true;
+    document.getElementById('result1').textContent = "Spinning...";
+    const spinAngleStart1 = Math.random() * 10 + 10;
+    const spinTimeTotal1 = Math.random() * 3000 + 6000;
+    let spinTime1 = 0;
+    function rotateWheel1() {
+        spinTime1 += 30;
+        if(spinTime1 >= spinTimeTotal1) {
+            stopRotateWheel1();
+            return;
+        }
+        const spinAngle = spinAngleStart1 - easeOut(spinTime1, 0, spinAngleStart1, spinTimeTotal1);
+        startAngle1 += (spinAngle * Math.PI / 180);
+        drawWheel(canvas1, ctx1, teamNames, startAngle1, wheelColors);
+        spinTimeout1 = requestAnimationFrame(rotateWheel1);
+    }
+    rotateWheel1();
+}
+
+function stopRotateWheel1() {
+    cancelAnimationFrame(spinTimeout1);
+    isSpinning1 = false;
+    const degrees = startAngle1 * 180 / Math.PI + 90;
+    const arc = Math.PI / (teamNames.length / 2);
+    const arcd = arc * 180 / Math.PI;
+    const index = Math.floor((360 - degrees % 360) % 360 / arcd);
+    const winningItem = teamNames[index];
+    const winningTeamName = winningItem && winningItem.name ? winningItem.name : winningItem; 
+    document.getElementById('result1').textContent = winningTeamName;
+    if (!isSpinning2) handleSpinStop();
+}
+
+function spinWheel2() {
+    isSpinning2 = true;
+    document.getElementById('result2').textContent = "Spinning...";
+    const spinAngleStart2 = Math.random() * 10 + 10;
+    const spinTimeTotal2 = Math.random() * 6000 + 7000;
+    let spinTime2 = 0;
+    function rotateWheel2() {
+        spinTime2 += 30;
+        if(spinTime2 >= spinTimeTotal2) {
+            stopRotateWheel2();
+            return;
+        }
+        const spinAngle = spinAngleStart2 - easeOut(spinTime2, 0, spinAngleStart2, spinTimeTotal2);
+        startAngle2 += (spinAngle * Math.PI / 180);
+        drawWheel(canvas2, ctx2, numberNames, startAngle2, wheelColors);
+        spinTimeout2 = requestAnimationFrame(rotateWheel2);
+    }
+    rotateWheel2();
+}
+
+function stopRotateWheel2() {
+    cancelAnimationFrame(spinTimeout2);
+    isSpinning2 = false;
+    const degrees = startAngle2 * 180 / Math.PI + 90;
+    const arc = Math.PI / (numberNames.length / 2);
+    const arcd = arc * 180 / Math.PI;
+    const index = Math.floor((360 - degrees % 360) % 360 / arcd);
+    const winningItem = numberNames[index];
+    const winningNumberName = winningItem.name; 
+    document.getElementById('result2').textContent = winningNumberName;
+    if (!isSpinning1) handleSpinStop();
+}
+
+function handleSpinStop() {
+    const winningTeam = document.getElementById('result1').textContent; 
+    const winningNumber = document.getElementById('result2').textContent; 
+    showCustomConfirmModal('Pairing Complete!', `The winning pair is ${winningTeam} and ${winningNumber}. What action would you like to take?`, winningTeam, winningNumber);
+    toggleInputs(true);
+}
+
+function easeOut(t, b, c, d) {
+    const ts = (t/=d)*t;
+    const tc = ts*t;
+    return b+c*(tc + -3*ts + 3*t);
+}
+
+function createModal(title, message, options) {
+    const existingModal = document.getElementById('custom-modal-overlay');
+    if (existingModal) existingModal.remove();
+    const overlay = document.createElement('div');
+    overlay.id = 'custom-modal-overlay';
+    overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;`;
+    const modalBox = document.createElement('div');
+    modalBox.style.cssText = `background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); max-width: 450px; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;`;
+    const modalTitle = document.createElement('h3');
+    modalTitle.textContent = title;
+    modalTitle.style.cssText = 'margin-top: 0; color: #0366d6;';
+    const modalMessage = document.createElement('p');
+    modalMessage.textContent = message;
+    modalMessage.style.cssText = 'margin-bottom: 20px;';
+    modalBox.appendChild(modalTitle);
+    modalBox.appendChild(modalMessage);
+    const buttonGroup = document.createElement('div');
+    buttonGroup.style.cssText = 'display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;';
+    const close = () => overlay.remove();
+    options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option.text;
+        btn.style.cssText = option.style + ' padding: 10px 15px; border-radius: 6px; border: none; cursor: pointer;';
+        btn.onclick = () => { option.action(); close(); };
+        buttonGroup.appendChild(btn);
+    });
+    modalBox.appendChild(buttonGroup);
+    overlay.appendChild(modalBox);
+    document.body.appendChild(overlay);
+}
+
+function showModal(title, message) {
+    createModal(title, message, [{ text: 'OK', action: () => {}, style: 'background-color: #0366d6; color: white;' }]);
+}
+
+function showCustomConfirmModal(title, message, winningTeamName, winningNumberName) {
+    const options = [
+        { text: 'Keep Both', action: () => {}, style: 'background-color: #6a737d; color: white;' },
+        { text: `Remove ${winningTeamName}`, action: () => removeName(winningTeamName, 'team', true), style: 'background-color: #0366d6; color: white;' },
+        { text: `Remove ${winningNumberName}`, action: () => removeName(winningNumberName, 'number', true), style: 'background-color: #FF9800; color: white;' },
+        { text: 'Remove Both', action: () => { removeName(winningTeamName, 'team', true); removeName(winningNumberName, 'number', true); }, style: 'background-color: #cb2431; color: white;' }
+    ];
+    createModal(title, message, options);
+}
+
+function toggleInputs(enable) {
+    document.getElementById('spinButton').disabled = !enable || teamNames.length === 0 || numberNames.length === 0;
+    document.getElementById('resetButton').disabled = !enable;
+    document.getElementById('shuffleButton').disabled = !enable;
+    document.getElementById('addNameButton').disabled = !enable;
+    document.getElementById('nameInput').disabled = !enable;
+    document.getElementById('addNumberButton').disabled = !enable;
+    document.getElementById('numberInput').disabled = !enable;
+}
+
+function generateDefaultNumbers(count) {
+    return Array.from({ length: count }, (_, i) => ({ abbr: `${i + 1}`, name: `Item ${i + 1}` }));
+}
+
+function loadLeague() {
+    const select = document.getElementById('leagueSelect');
+    const leagueKey = select.value;
+    currentLeagueKey = leagueKey;
+
+    if (leagueKey === 'Custom') {
+        teamNames = [...KELAS_TEAMS];
+        numberNames = [...KELAS_NUMBERS];
+    } else {
+        const teams = TEAM_MAP[leagueKey]; 
+        teamNames = [...teams].sort((a, b) => a.abbr.localeCompare(b.abbr)); 
+        numberNames = generateDefaultNumbers(teams.length);
+    }
+    updateNameList();
+    updateNumberList();
+    redrawWheels();
+    toggleInputs(true); 
+}
+
+function resetToCurrentLeague() {
+    if (isSpinning1 || isSpinning2) return;
+    loadLeague();
+}
+
+function redrawWheels() {
+    drawWheel(canvas1, ctx1, teamNames, startAngle1, wheelColors);
+    drawWheel(canvas2, ctx2, numberNames, startAngle2, wheelColors);
+    document.getElementById('result1').textContent = "?";
+    document.getElementById('result2').textContent = "?";
+}
+
+function removeName(itemIdentifier, listType, isNameSearch = false) {
+    if (isSpinning1 || isSpinning2) return;
+    if (listType === 'team') {
+        teamNames = teamNames.filter(t => isNameSearch ? t.name !== itemIdentifier : t.abbr !== itemIdentifier);
+        updateNameList();
+    } else if (listType === 'number') {
+        if (isNameSearch) {
+            numberNames = numberNames.filter(n => n.name !== itemIdentifier);
+        } else {
+            numberNames = numberNames.filter(n => n.abbr !== itemIdentifier);
+        }
+        updateNumberList();
+    }
+    redrawWheels();
+    toggleInputs(true); 
+}
+
+function shuffleNames() {
+    if (isSpinning1 || isSpinning2) return;
+    for (let i = teamNames.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [teamNames[i], teamNames[j]] = [teamNames[j], teamNames[i]];
+    }
+    for (let i = numberNames.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numberNames[i], numberNames[j]] = [numberNames[j], numberNames[i]];
+    }
+    updateNameList();
+    updateNumberList();
+    redrawWheels();
+}
+
+function updateList(items, ulId, listType) {
+    const ul = document.getElementById(ulId);
+    ul.innerHTML = '';
+    items.forEach((item) => {
+        const li = document.createElement('li');
+        const inputContent = listType === 'team' ? item.abbr : item.name;
+        const uniqueKey = item.abbr;
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.value = inputContent;
+        nameInput.className = 'list-name-input';
+        
+        li.appendChild(nameInput);
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.className = 'remove-btn';
+        removeBtn.onclick = () => removeName(uniqueKey, listType, false); 
+        li.appendChild(removeBtn);
+        ul.appendChild(li);
+    });
+}
+
+function updateNameList() {
+    updateList(teamNames, 'nameList', 'team');
+}
+
+function updateNumberList() {
+    updateList(numberNames, 'numberList', 'number');
+}
+
+(function init() {
+    document.getElementById('leagueSelect').value = 'Custom';
+    loadLeague();
+})();
