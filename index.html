@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dual Wheel Randomizer - Kelas</title>
-    <!-- Memanggil file CSS yang sudah dipisah -->
+    <title>Dual Wheel Randomizer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="controls">
             <div style="width: 100%; text-align: center; padding-bottom: 20px;">
-                <div class="banner" style="font-size: 1.1em; padding: 10px 15px;">Daftar Kelas (Custom) & Liga Lainnya</div>
+                <div class="banner" style="font-size: 1.1em; padding: 10px 15px;">Daftar Siswa & Nomor</div>
                 <select id="leagueSelect" onchange="loadLeague()">
-                    <option value="Custom">Data Kelas (30 Siswa)</option>
-                    <option value="NFL">NFL (Football)</option>
-                    <option value="NBA">NBA (Basketball)</option>
-                    <option value="MLB">MLB (Baseball)</option>
-                    <option value="NHL">NHL (Hockey)</option>
-                    <option value="MLS">MLS (Soccer)</option>
+                    <option value="Kelas">Daftar Kelas (30 Items)</option>
+                    <option value="Custom">Custom Spinners (0 Items)</option>
                 </select>
             </div>
 
             <div class="controls-column">
-                <div class="banner">Wheel #1 (Nama)</div>
+                <div class="banner">Wheel #1 (Nama Siswa)</div>
                 <div class="list-management">
                     <p>
-                        <input type="text" id="nameInput" placeholder="Tambah Nama Baru...">
+                        <input type="text" id="nameInput" placeholder="Tambah Nama Singkat...">
                         <button id="addNameButton" onclick="addName()">Add</button>
                     </p>
                     <ul id="nameList"></ul>
@@ -37,7 +32,7 @@
                 <div class="banner">Wheel #2 (Nomor)</div>
                 <div class="list-management">
                     <p>
-                        <input type="text" id="numberInput" placeholder="Tambah Nomor Baru...">
+                        <input type="text" id="numberInput" placeholder="Tambah Nomor/Deskripsi...">
                         <button id="addNumberButton" onclick="addNumber()">Add</button>
                     </p>
                     <ul id="numberList"></ul>
@@ -69,8 +64,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Memanggil file JavaScript yang sudah dipisah -->
+    
     <script src="script.js"></script>
 </body>
 </html>
