@@ -1,70 +1,388 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dual Wheel Randomizer</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roda Undian Nomor Spin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14142b;
+    --ink-2:#20204a;
+    --card:#fffdf7;
+    --coral:#ff5d5d;
+    --gold:#ffb100;
+    --teal:#2fc2b9;
+    --indigo:#6c5ce7;
+    --pointer:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:radial-gradient(circle at 50% -10%, #26265a 0%, var(--ink) 60%);
+    font-family:'Inter', sans-serif;
+    color:var(--card);
+    display:flex;
+    justify-content:center;
+    padding:28px 16px 48px;
+  }
+  .stage{
+    width:100%;
+    max-width:460px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+  .eyebrow{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.4px;
+    color:var(--gold);
+    text-align:center;
+  }
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(24px,6vw,32px);
+    margin:0;
+    text-align:center;
+    line-height:1.15;
+  }
+  .sub{
+    font-size:14px;
+    color:#c8c8e8;
+    text-align:center;
+    max-width:340px;
+    margin:0;
+  }
+
+  .wheel-wrap{
+    position:relative;
+    width:min(84vw, 340px);
+    aspect-ratio:1;
+    margin-top:6px;
+  }
+  .pointer{
+    position:absolute;
+    top:-6px;
+    left:50%;
+    transform:translateX(-50%);
+    width:0; height:0;
+    border-left:16px solid transparent;
+    border-right:16px solid transparent;
+    border-top:26px solid var(--pointer);
+    filter:drop-shadow(0 3px 3px rgba(0,0,0,.35));
+    z-index:5;
+  }
+  .hub-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:var(--ink-2);
+    padding:8px;
+    box-shadow:0 18px 40px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.05);
+  }
+  .wheel{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    position:relative;
+    transform:rotate(0deg);
+    transition:transform 4.2s cubic-bezier(.18,.71,.13,1);
+    box-shadow:0 0 0 4px var(--ink-2), 0 0 0 6px rgba(255,255,255,.08);
+  }
+  .seg-label{
+    position:absolute;
+    top:50%; left:50%;
+    width:0; height:0;
+  }
+  .seg-label span{
+    position:absolute;
+    display:block;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:rgba(20,20,43,.82);
+    transition:opacity .4s ease;
+    white-space:nowrap;
+  }
+  .seg-label span.used{
+    opacity:.28;
+    text-decoration:line-through;
+  }
+  .hub{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:19%; height:19%;
+    border-radius:50%;
+    background:var(--card);
+    box-shadow:0 4px 10px rgba(0,0,0,.35), inset 0 0 0 3px var(--gold);
+    z-index:4;
+  }
+
+  .panel{
+    width:100%;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:16px;
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  label{
+    font-size:12px;
+    color:#b7b7de;
+    font-weight:600;
+  }
+  select{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.15);
+    background:var(--ink-2);
+    color:var(--card);
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:500;
+  }
+  button.spin-btn{
+    margin-top:2px;
+    padding:13px 14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(180deg, var(--gold), #e59900);
+    color:#231400;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 6px 0 #a86e00, 0 10px 18px rgba(0,0,0,.35);
+    transition:transform .08s ease, box-shadow .08s ease;
+  }
+  button.spin-btn:active{
+    transform:translateY(4px);
+    box-shadow:0 2px 0 #a86e00, 0 4px 10px rgba(0,0,0,.3);
+  }
+  button.spin-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    box-shadow:0 6px 0 #a86e00, 0 10px 18px rgba(0,0,0,.2);
+  }
+
+  .result{
+    min-height:26px;
+    text-align:center;
+    font-family:'Baloo 2', sans-serif;
+    font-size:16px;
+    font-weight:700;
+    color:var(--card);
+  }
+  .result .num{
+    color:var(--gold);
+    font-size:19px;
+  }
+
+  .toggle-btn{
+    background:none;
+    border:1px solid rgba(255,255,255,.18);
+    color:#c8c8e8;
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    padding:9px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    width:100%;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12.5px;
+    margin-top:4px;
+  }
+  th,td{
+    text-align:left;
+    padding:7px 6px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  th{color:#b7b7de; font-weight:600;}
+  td.n{color:var(--gold); font-weight:700; text-align:center;}
+  .hidden{display:none;}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="controls">
-            <div style="width: 100%; text-align: center; padding-bottom: 20px;">
-                <div class="banner" style="font-size: 1.1em; padding: 10px 15px;">Daftar Siswa & Nomor</div>
-                <select id="leagueSelect" onchange="loadLeague()">
-                    <option value="Kelas">Daftar Kelas (30 Items)</option>
-                    <option value="Custom">Custom Spinners (0 Items)</option>
-                </select>
-            </div>
+<div class="stage">
+  <p class="eyebrow">UNDIAN URUTAN PRESENTASI</p>
+  <h1>Roda Nomor Spin</h1>
+  <p class="sub">Pilih nama sesuai absen, lalu putar rodanya untuk melihat nomor urutmu.</p>
 
-            <div class="controls-column">
-                <div class="banner">Wheel #1 (Nama Siswa)</div>
-                <div class="list-management">
-                    <p>
-                        <input type="text" id="nameInput" placeholder="Tambah Nama Singkat...">
-                        <button id="addNameButton" onclick="addName()">Add</button>
-                    </p>
-                    <ul id="nameList"></ul>
-                </div>
-            </div>
-
-            <div class="controls-column">
-                <div class="banner">Wheel #2 (Nomor)</div>
-                <div class="list-management">
-                    <p>
-                        <input type="text" id="numberInput" placeholder="Tambah Nomor/Deskripsi...">
-                        <button id="addNumberButton" onclick="addNumber()">Add</button>
-                    </p>
-                    <ul id="numberList"></ul>
-                </div>
-            </div>
-
-            <div style="width: 100%; text-align: center; padding: 10px 0;">
-                <button id="resetButton" onclick="resetToCurrentLeague()">Reset Lists</button>
-                <button id="shuffleButton" onclick="shuffleNames()">Shuffle Both</button>
-            </div>
-        </div>
-
-        <div class="wheel-display-row">
-            <div class="wheel-group">
-                <h2>Wheel #1</h2>
-                <canvas id="wheelCanvas1" width="500" height="500"></canvas>
-                <div id="result1" class="result-box">?</div>
-            </div>
-
-            <div class="center-spin-container">
-                <div class="banner" style="font-size: 1.1em; padding: 10px;">Ready to Pair?</div>
-                <button id="spinButton" onclick="spinWheels()">Spin Both Wheels</button>
-            </div>
-
-            <div class="wheel-group">
-                <h2>Wheel #2</h2>
-                <canvas id="wheelCanvas2" width="500" height="500"></canvas>
-                <div id="result2" class="result-box">?</div>
-            </div>
-        </div>
+  <div class="wheel-wrap" id="wheelWrap">
+    <div class="pointer"></div>
+    <div class="hub-ring">
+      <div class="wheel" id="wheel"></div>
     </div>
-    
-    <script src="script.js"></script>
+    <div class="hub"></div>
+  </div>
+
+  <div class="panel">
+    <label for="studentSelect">Pilih siswa (nomor absen)</label>
+    <select id="studentSelect"></select>
+    <button class="spin-btn" id="spinBtn">Putar Roda!</button>
+    <div class="result" id="result"></div>
+  </div>
+
+
+</div>
+
+<script>
+const students = [
+  {absen:1,  nama:"Amanda Rahmawaty",              nomor:27},
+  {absen:2,  nama:"Arika Pratiwi",                 nomor:11},
+  {absen:3,  nama:"Aureliya Faezabariza",          nomor:8},
+  {absen:4,  nama:"Calista Kaira Anwar",           nomor:3},
+  {absen:5,  nama:"Cindy Zayla Shalsabila",        nomor:1},
+  {absen:6,  nama:"Dinda Aisyah Harum Minanti",    nomor:20},
+  {absen:7,  nama:"Dinda Amalia Husna",            nomor:2},
+  {absen:8,  nama:"Eri Rahma Putri",               nomor:22},
+  {absen:9,  nama:"Hary Hardianto",                nomor:4},
+  {absen:10, nama:"Karena Cantika Kirani",         nomor:17},
+  {absen:11, nama:"Keisha Sefinah Raihan",         nomor:23},
+  {absen:12, nama:"Kiara Melva Karenina",          nomor:16},
+  {absen:13, nama:"Laeli Nurhasanah",              nomor:9},
+  {absen:14, nama:"Lindiyani Ariezka",             nomor:15},
+  {absen:15, nama:"Mohammad Rasya Pradita",        nomor:28},
+  {absen:16, nama:"Muhammad Fathir Afrizal",       nomor:5},
+  {absen:17, nama:"Muhammad Iqbal Musyafa",        nomor:18},
+  {absen:18, nama:"Nabilah Fikra",                 nomor:29},
+  {absen:19, nama:"Nadzwa Sihab",                  nomor:6},
+  {absen:20, nama:"Nela Nur' Indah",               nomor:14},
+  {absen:21, nama:"Nessa Aura Livia",              nomor:21},
+  {absen:22, nama:"Nesya Citra Dzakiiah",          nomor:13},
+  {absen:23, nama:"Neza Putri Oktavia",            nomor:10},
+  {absen:24, nama:"Nisrina Maulida",               nomor:12},
+  {absen:25, nama:"Nurwakhidah Wajihah Putriyana", nomor:7},
+  {absen:26, nama:"Prishilia",                     nomor:26},
+  {absen:27, nama:"Putri Ayu Sulialmira",          nomor:24},
+  {absen:28, nama:"Rina Syifani Jannah",           nomor:19},
+  {absen:29, nama:"Riska Ayunita",                 nomor:30},
+  {absen:30, nama:"Rizki Pratama",                 nomor:25},
+];
+
+const TOTAL_SLOTS = 30;
+const SEG_DEG = 360 / TOTAL_SLOTS;
+const colors = ["#ff5d5d","#ffb100","#2fc2b9","#6c5ce7"];
+
+const wheel = document.getElementById('wheel');
+const wheelWrap = document.getElementById('wheelWrap');
+
+// Build conic-gradient segments
+let stops = [];
+for(let i=1;i<=TOTAL_SLOTS;i++){
+  const color = colors[(i-1) % colors.length];
+  const start = (i-1)*SEG_DEG;
+  const end = i*SEG_DEG;
+  stops.push(`${color} ${start}deg ${end}deg`);
+}
+wheel.style.background = `conic-gradient(${stops.join(',')})`;
+
+// Build number labels (positions are recalculated in layoutLabels,
+// since the wheel's real pixel size depends on the viewport)
+for(let i=1;i<=TOTAL_SLOTS;i++){
+  const wrap = document.createElement('div');
+  wrap.className = 'seg-label';
+  const span = document.createElement('span');
+  span.textContent = i;
+  span.dataset.num = i;
+  wrap.appendChild(span);
+  wheel.appendChild(wrap);
+}
+
+// FIX: sebelumnya radius label di-hardcode 50px, padahal ukuran roda
+// sebenarnya responsif (min(84vw,340px)) sehingga semua angka menumpuk
+// di tengah. Sekarang radius dihitung dari ukuran roda yang sebenarnya
+// dirender di layar, dan dihitung ulang saat ukuran layar berubah.
+function layoutLabels(){
+  const size = wheel.getBoundingClientRect().width;
+  const labelRadius = (size / 2) * 0.72;
+  wheel.querySelectorAll('.seg-label span').forEach(span=>{
+    const i = parseInt(span.dataset.num, 10);
+    const angle = (i - 0.5) * SEG_DEG;
+    span.style.transform =
+      `rotate(${angle}deg) translateY(-${labelRadius}px) rotate(${-angle}deg) translate(-50%,-50%)`;
+  });
+}
+layoutLabels();
+window.addEventListener('resize', layoutLabels);
+
+// Populate dropdown
+const select = document.getElementById('studentSelect');
+students.forEach(s=>{
+  const opt = document.createElement('option');
+  opt.value = s.absen;
+  opt.textContent = `${String(s.absen).padStart(2,'0')}. ${s.nama}`;
+  select.appendChild(opt);
+});
+
+let currentRotation = 0;
+let spinning = false;
+const spinBtn = document.getElementById('spinBtn');
+const resultEl = document.getElementById('result');
+
+spinBtn.addEventListener('click', ()=>{
+  if(spinning) return;
+  const absen = parseInt(select.value, 10);
+  const student = students.find(s=>s.absen === absen);
+  if(!student) return;
+
+  spinning = true;
+  spinBtn.disabled = true;
+  select.disabled = true;
+  resultEl.textContent = '';
+
+  const target = student.nomor; // 1..30, position on wheel matches its printed number
+  const targetCenter = (target - 0.5) * SEG_DEG; // angle of that segment's center, clockwise from top
+  const jitter = (Math.random() * 7) - 3.5; // small realism, stays inside segment
+  const neededMod = ((360 - targetCenter + jitter) % 360 + 360) % 360;
+
+  const fullSpins = 4 + Math.floor(Math.random()*4); // 4-7 full turns, varies each time
+  const duration = 3.6 + Math.random()*1.6; // 3.6s-5.2s, varies each time
+  wheel.style.transitionDuration = `${duration.toFixed(2)}s`;
+
+  const base = currentRotation - (currentRotation % 360);
+  let finalRotation = base + fullSpins*360 + neededMod;
+  while(finalRotation <= currentRotation){ finalRotation += 360; }
+
+  currentRotation = finalRotation;
+  wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+  const onDone = ()=>{
+    wheel.removeEventListener('transitionend', onDone);
+    spinning = false;
+    select.disabled = false;
+    resultEl.innerHTML = `${student.nama} dapat nomor spin ke- <span class="num">${target}</span>`;
+
+    // Tandai nomor ini sudah keluar & hapus siswa ini dari daftar pilihan
+    const usedLabel = wheel.querySelector(`.seg-label span[data-num="${target}"]`);
+    if(usedLabel) usedLabel.classList.add('used');
+
+    const opt = select.querySelector(`option[value="${absen}"]`);
+    if(opt) opt.remove();
+
+    if(select.options.length === 0){
+      spinBtn.disabled = true;
+      spinBtn.textContent = 'Semua sudah dapat nomor';
+    } else {
+      spinBtn.disabled = false;
+    }
+  };
+  wheel.addEventListener('transitionend', onDone);
+});
+</script>
 </body>
 </html>
