@@ -3,226 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dual Wheel Absen & Soal</title>
-    <style>
-        /* --- General Layout and GitHub Theme --- */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            margin: 20px;
-            background-color: #f6f8fa;
-            color: #24292e;
-        }
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(27, 31, 35, 0.1);
-        }
-
-        .wheel-display-row {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .controls {
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e1e4e8;
-        }
-        .controls-column {
-            width: 45%;
-            min-width: 380px;
-            margin: 10px;
-        }
-
-        .wheel-group {
-            width: 40%;
-            min-width: 500px;
-            margin: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h2 {
-            border-bottom: 2px solid #e1e4e8;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .banner {
-            background-color: #0366d6;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.5em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        button {
-            padding: 10px 18px;
-            font-size: 1em;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            transition: background-color 0.2s, opacity 0.2s;
-        }
-        button:disabled {
-            background-color: #ccc !important;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .center-spin-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 150px;
-            min-width: 150px;
-            height: 200px;
-        }
-
-        #spinButton {
-            background-color: #2c974b;
-            color: white;
-            font-weight: bold;
-            width: 150px;
-            padding: 15px 18px;
-            margin: 10px 0;
-            white-space: normal;
-        }
-        #spinButton:hover { background-color: #238636; }
-
-        .add-controls input[type="text"] {
-            padding: 10px;
-            margin-right: 8px;
-            border: 1px solid #d1d5da;
-            border-radius: 6px;
-            width: 55%;
-        }
-        .add-controls button {
-            background-color: #0366d6;
-            color: white;
-            margin-top: 10px;
-        }
-
-        #resetButton {
-            background-color: #555;
-            color: white;
-            margin-top: 10px;
-        }
-        #resetButton:hover { background-color: #333; }
-
-        #shuffleButton {
-            background-color: #ffaa00;
-            color: black;
-            margin-left: 10px;
-        }
-        #shuffleButton:hover { background-color: #e69500; }
-
-        #leagueSelect {
-            padding: 10px;
-            border: 1px solid #d1d5da;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 1em;
-            width: 100%;
-            box-sizing: border-box;
-            background-color: white;
-        }
-
-        #nameList, #numberList {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-            text-align: left;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        #nameList li, #numberList li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 3px 10px;
-            margin-bottom: 5px;
-            border: 1px solid #eaecef;
-            border-radius: 6px;
-            background-color: #f6f8fa;
-        }
-
-        .list-name-input {
-            border: none;
-            background: none;
-            flex-grow: 1;
-            padding: 5px 0;
-            font-family: inherit;
-            font-size: inherit;
-            color: inherit;
-            outline: none;
-        }
-
-        .remove-btn {
-            background-color: #cb2431;
-            color: white;
-            padding: 4px 8px;
-            font-size: 0.8em;
-            margin-left: 10px;
-        }
-        .remove-btn:hover { background-color: #a01c27; }
-
-        .result-box {
-            font-size: 1.8em;
-            font-weight: 800;
-            padding: 15px;
-            margin-top: 20px;
-            border: 2px solid #e1e4e8;
-            border-radius: 8px;
-            min-height: 50px;
-            color: #24292e;
-            background-color: #fafbfc;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .list-management {
-            border: 1px solid #e1e4e8;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-    </style>
+    <title>Dual Wheel Randomizer - Kelas</title>
+    <!-- Memanggil file CSS yang sudah dipisah -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-
         <div class="controls">
             <div style="width: 100%; text-align: center; padding-bottom: 20px;">
-                <div class="banner" style="font-size: 1.1em; padding: 10px 15px;">Pilih Mode / Daftar Kustom</div>
+                <div class="banner" style="font-size: 1.1em; padding: 10px 15px;">Daftar Kelas (Custom) & Liga Lainnya</div>
                 <select id="leagueSelect" onchange="loadLeague()">
-                    <option value="KelasXI">Absen Kelas (30 Siswa & Soal)</option>
-                    <option value="Custom">Custom Spinners (0 Items)</option>
+                    <option value="Custom">Data Kelas (30 Siswa)</option>
+                    <option value="NFL">NFL (Football)</option>
+                    <option value="NBA">NBA (Basketball)</option>
+                    <option value="MLB">MLB (Baseball)</option>
+                    <option value="NHL">NHL (Hockey)</option>
+                    <option value="MLS">MLS (Soccer)</option>
                 </select>
             </div>
 
             <div class="controls-column">
-                <div class="banner">Roda #1: Nama Siswa</div>
+                <div class="banner">Wheel #1 (Nama)</div>
                 <div class="list-management">
                     <p>
-                        <input type="text" id="nameInput" placeholder="Tambah Siswa...">
+                        <input type="text" id="nameInput" placeholder="Tambah Nama Baru...">
                         <button id="addNameButton" onclick="addName()">Add</button>
                     </p>
                     <ul id="nameList"></ul>
@@ -230,10 +34,10 @@
             </div>
 
             <div class="controls-column">
-                <div class="banner">Roda #2: Nomor Soal</div>
+                <div class="banner">Wheel #2 (Nomor)</div>
                 <div class="list-management">
                     <p>
-                        <input type="text" id="numberInput" placeholder="Tambah Nomor Soal...">
+                        <input type="text" id="numberInput" placeholder="Tambah Nomor Baru...">
                         <button id="addNumberButton" onclick="addNumber()">Add</button>
                     </p>
                     <ul id="numberList"></ul>
@@ -241,298 +45,32 @@
             </div>
 
             <div style="width: 100%; text-align: center; padding: 10px 0;">
-                <button id="resetButton" onclick="resetToCurrentLeague()">Reset Daftar</button>
-                <button id="shuffleButton" onclick="shuffleNames()">Acak Keduanya</button>
+                <button id="resetButton" onclick="resetToCurrentLeague()">Reset Lists</button>
+                <button id="shuffleButton" onclick="shuffleNames()">Shuffle Both</button>
             </div>
         </div>
 
         <div class="wheel-display-row">
             <div class="wheel-group">
-                <h2>Roda Siswa</h2>
+                <h2>Wheel #1</h2>
                 <canvas id="wheelCanvas1" width="500" height="500"></canvas>
                 <div id="result1" class="result-box">?</div>
             </div>
 
             <div class="center-spin-container">
-                <div class="banner" style="font-size: 1.1em; padding: 10px;">Siap Putar?</div>
-                <button id="spinButton" onclick="spinWheels()">Putar Roda</button>
+                <div class="banner" style="font-size: 1.1em; padding: 10px;">Ready to Pair?</div>
+                <button id="spinButton" onclick="spinWheels()">Spin Both Wheels</button>
             </div>
 
             <div class="wheel-group">
-                <h2>Roda Soal</h2>
+                <h2>Wheel #2</h2>
                 <canvas id="wheelCanvas2" width="500" height="500"></canvas>
                 <div id="result2" class="result-box">?</div>
             </div>
         </div>
     </div>
 
-    <script>
-        // --- DATA SISWA & NOMOR SOAL SESUAI PERMINTAAN ---
-        const TEAM_MAP = {
-            KelasXI: [
-                { abbr: "Amanda R.", name: "Amanda Rahmawaty (Soal 27)" },
-                { abbr: "Arika P.", name: "Arika Pratiwi (Soal 11)" },
-                { abbr: "Aureliya F.", name: "Aureliya Faezabariza (Soal 8)" },
-                { abbr: "Calista K.A.", name: "Calista Kaira Anwar (Soal 3)" },
-                { abbr: "Cindy Z.S.", name: "Cindy Zayla Shalsabila (Soal 1)" },
-                { abbr: "Dinda A.H.M.", name: "Dinda Aisyah Harum Minanti (Soal 20)" },
-                { abbr: "Dinda A.H.", name: "Dinda Amalia Husna (Soal 2)" },
-                { abbr: "Eri R.P.", name: "Eri Rahma Putri (Soal 22)" },
-                { abbr: "Hary H.", name: "Hary Hardianto (Soal 4)" },
-                { abbr: "Karena C.K.", name: "Karena Cantika Kirani (Soal 17)" },
-                { abbr: "Keisha S.R.", name: "Keisha Sefinah Raihan (Soal 23)" },
-                { abbr: "Kiara M.K.", name: "Kiara Melva Karenina (Soal 16)" },
-                { abbr: "Laeli N.", name: "Laeli Nurhasanah (Soal 9)" },
-                { abbr: "Lindiyani A.", name: "Lindiyani Ariezka (Soal 15)" },
-                { abbr: "Moh. Rasya P.", name: "Mohammad Rasya Pradita (Soal 28)" },
-                { abbr: "M. Fathir A.", name: "Muhammad Fathir Afrizal (Soal 5)" },
-                { abbr: "M. Iqbal M.", name: "Muhammad Iqbal Musyafa (Soal 18)" },
-                { abbr: "Nabilah F.", name: "Nabilah Fikra (Soal 29)" },
-                { abbr: "Nadzwa S.", name: "Nadzwa Sihab (Soal 6)" },
-                { abbr: "Nela N.I.", name: "Nela Nur' Indah (Soal 14)" },
-                { abbr: "Nessa A.L.", name: "Nessa Aura Livia (Soal 21)" },
-                { abbr: "Nesya C.D.", name: "Nesya Citra Dzakiiah (Soal 13)" },
-                { abbr: "Neza P.O.", name: "Neza Putri Oktavia (Soal 10)" },
-                { abbr: "Nisrina M.", name: "Nisrina Maulida (Soal 12)" },
-                { abbr: "Nurwakhidah W.P.", name: "Nurwakhidah Wajihah Putriyana (Soal 7)" },
-                { abbr: "Prishilia", name: "Prishilia (Soal 26)" },
-                { abbr: "Putri Ayu S.", name: "Putri Ayu Sulialmira (Soal 24)" },
-                { abbr: "Rina Syifani J.", name: "Rina Syifani Jannah (Soal 19)" },
-                { abbr: "Riska A.", name: "Riska Ayunita (Soal 30)" },
-                { abbr: "Rizki Pratama", name: "Rizki Pratama (Soal 25)" }
-            ]
-        };
-
-        let teamNames = [];
-        let numberNames = [];
-        let isSpinning1 = false;
-        let isSpinning2 = false;
-        let currentLeagueKey = "KelasXI";
-
-        const canvas1 = document.getElementById('wheelCanvas1');
-        const ctx1 = canvas1.getContext('2d');
-        const canvas2 = document.getElementById('wheelCanvas2');
-        const ctx2 = canvas2.getContext('2d');
-
-        let startAngle1 = 0;
-        let startAngle2 = 0;
-        let spinTimeout1 = null;
-        let spinTimeout2 = null;
-
-        const wheelColors = ["#0366d6", "#8BC34A", "#FF9800", "#E91E63", "#4A148C", "#FFEB3B", "#3F51B5", "#F44336", "#00BCD4", "#2c974b"];
-
-        function drawWheel(canvas, ctx, names, startAngle, colors) {
-            const currentRadius = canvas.width / 2;
-            const diameter = canvas.width;
-
-            ctx.clearRect(0, 0, diameter, diameter);
-
-            if (names.length === 0) {
-                ctx.fillStyle = '#cc5555';
-                ctx.font = 'bold 24px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('List Kosong!', currentRadius, currentRadius);
-                return;
-            }
-
-            const arc = Math.PI / (names.length / 2);
-
-            for(let i = 0; i < names.length; i++) {
-                const item = names[i];
-                const angle = startAngle + i * arc;
-                const textToDisplay = item.abbr;
-                const fillColor = colors[i % colors.length];
-
-                ctx.fillStyle = fillColor;
-                ctx.beginPath();
-                ctx.arc(currentRadius, currentRadius, currentRadius - 10, angle, angle + arc, false);
-                ctx.arc(currentRadius, currentRadius, 0, angle + arc, angle, true);
-                ctx.fill();
-
-                ctx.save();
-                ctx.fillStyle = 'white';
-                ctx.translate(currentRadius + Math.cos(angle + arc / 2) * (currentRadius - 70),
-                              currentRadius + Math.sin(angle + arc / 2) * (currentRadius - 70));
-                ctx.rotate(angle + arc / 2 + Math.PI / 2);
-                ctx.font = 'bold 14px Arial';
-                ctx.textAlign = 'center'; 
-                ctx.fillText(textToDisplay, 0, 0);
-                ctx.restore();
-            }
-
-            ctx.fillStyle = "#333";
-            ctx.beginPath();
-            ctx.moveTo(currentRadius - 15, 0);
-            ctx.lineTo(currentRadius + 15, 0);
-            ctx.lineTo(currentRadius, 30);
-            ctx.fill();
-        }
-
-        function spinWheels() {
-            if (isSpinning1 || isSpinning2) return;
-            if (teamNames.length === 0 || numberNames.length === 0) {
-                showModal('Error', 'Daftar kosong!');
-                return;
-            }
-            toggleInputs(false);
-            spinWheel1();
-            spinWheel2();
-        }
-
-        function spinWheel1() {
-            isSpinning1 = true;
-            document.getElementById('result1').textContent = "Memutar...";
-            const spinAngleStart1 = Math.random() * 10 + 10;
-            const spinTimeTotal1 = Math.random() * 3000 + 6000;
-            let spinTime1 = 0;
-
-            function rotateWheel1() {
-                spinTime1 += 30;
-                if(spinTime1 >= spinTimeTotal1) {
-                    stopRotateWheel1();
-                    return;
-                }
-                const spinAngle = spinAngleStart1 - easeOut(spinTime1, 0, spinAngleStart1, spinTimeTotal1);
-                startAngle1 += (spinAngle * Math.PI / 180);
-                drawWheel(canvas1, ctx1, teamNames, startAngle1, wheelColors);
-                spinTimeout1 = requestAnimationFrame(rotateWheel1);
-            }
-            rotateWheel1();
-        }
-
-        function stopRotateWheel1() {
-            cancelAnimationFrame(spinTimeout1);
-            isSpinning1 = false;
-            const degrees = startAngle1 * 180 / Math.PI + 90;
-            const arc = Math.PI / (teamNames.length / 2);
-            const arcd = arc * 180 / Math.PI;
-            const index = Math.floor((360 - degrees % 360) % 360 / arcd);
-            const winningItem = teamNames[index];
-            document.getElementById('result1').textContent = winningItem ? winningItem.name : "";
-            if (!isSpinning2) handleSpinStop();
-        }
-
-        function spinWheel2() {
-            isSpinning2 = true;
-            document.getElementById('result2').textContent = "Memutar...";
-            const spinAngleStart2 = Math.random() * 10 + 10;
-            const spinTimeTotal2 = Math.random() * 6000 + 7000;
-            let spinTime2 = 0;
-
-            function rotateWheel2() {
-                spinTime2 += 30;
-                if(spinTime2 >= spinTimeTotal2) {
-                    stopRotateWheel2();
-                    return;
-                }
-                const spinAngle = spinAngleStart2 - easeOut(spinTime2, 0, spinAngleStart2, spinTimeTotal2);
-                startAngle2 += (spinAngle * Math.PI / 180);
-                drawWheel(canvas2, ctx2, numberNames, startAngle2, wheelColors);
-                spinTimeout2 = requestAnimationFrame(rotateWheel2);
-            }
-            rotateWheel2();
-        }
-
-        function stopRotateWheel2() {
-            cancelAnimationFrame(spinTimeout2);
-            isSpinning2 = false;
-            const degrees = startAngle2 * 180 / Math.PI + 90;
-            const arc = Math.PI / (numberNames.length / 2);
-            const arcd = arc * 180 / Math.PI;
-            const index = Math.floor((360 - degrees % 360) % 360 / arcd);
-            const winningItem = numberNames[index];
-            document.getElementById('result2').textContent = winningItem ? winningItem.name : "";
-            if (!isSpinning1) handleSpinStop();
-        }
-
-        function handleSpinStop() {
-            toggleInputs(true);
-        }
-
-        function easeOut(t, b, c, d) {
-            const ts = (t/=d)*t;
-            const tc = ts*t;
-            return b+c*(tc + -3*ts + 3*t);
-        }
-
-        function createModal(title, message, options) {
-            const existingModal = document.getElementById('custom-modal-overlay');
-            if (existingModal) existingModal.remove();
-
-            const overlay = document.createElement('div');
-            overlay.id = 'custom-modal-overlay';
-            overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000;`;
-
-            const modalBox = document.createElement('div');
-            modalBox.style.cssText = `background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); max-width: 450px; text-align: center;`;
-
-            const modalTitle = document.createElement('h3');
-            modalTitle.textContent = title;
-            modalTitle.style.cssText = 'margin-top: 0; color: #0366d6;';
-
-            const modalMessage = document.createElement('p');
-            modalMessage.textContent = message;
-            modalMessage.style.cssText = 'margin-bottom: 20px;';
-
-            modalBox.appendChild(modalTitle);
-            modalBox.appendChild(modalMessage);
-
-            const buttonGroup = document.createElement('div');
-            buttonGroup.style.cssText = 'display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;';
-            const close = () => overlay.remove();
-
-            options.forEach(option => {
-                const btn = document.createElement('button');
-                btn.textContent = option.text;
-                btn.style.cssText = option.style + ' padding: 10px 15px; border-radius: 6px; border: none; cursor: pointer;';
-                btn.onclick = () => { option.action(); close(); };
-                buttonGroup.appendChild(btn);
-            });
-
-            modalBox.appendChild(buttonGroup);
-            overlay.appendChild(modalBox);
-            document.body.appendChild(overlay);
-        }
-
-        function showModal(title, message) {
-            createModal(title, message, [{ text: 'OK', action: () => {}, style: 'background-color: #0366d6; color: white;' }]);
-        }
-
-        function toggleInputs(enable) {
-            document.getElementById('spinButton').disabled = !enable;
-            document.getElementById('resetButton').disabled = !enable;
-            document.getElementById('shuffleButton').disabled = !enable;
-        }
-
-        function loadLeague() {
-            const select = document.getElementById('leagueSelect');
-            const leagueKey = select.value;
-            currentLeagueKey = leagueKey;
-
-            if (leagueKey === 'Custom') {
-                teamNames = [];
-                numberNames = [];
-            } else {
-                const teams = TEAM_MAP[leagueKey];
-                teamNames = [...teams];
-                
-                // Mengisi wheel 2 dengan nomor soal (1 sampai 30)
-                numberNames = teams.map((_, i) => ({
-                    abbr: `Soal ${i + 1}`,
-                    name: `Soal No. ${i + 1}`
-                }));
-            }
-
-            updateNameList();
-            updateNumberList();
-            redrawWheels();
-            toggleInputs(true);
-        }
-
-        function resetToCurrentLeague() {
-            if (isSpinning1 || isSpinning2) return;
-            loadLeague();
-        }
-
-        function redrawWheels() {
-            drawWheel(canvas1, ctx1, teamNames
+    <!-- Memanggil file JavaScript yang sudah dipisah -->
+    <script src="script.js"></script>
+</body>
+</html>
