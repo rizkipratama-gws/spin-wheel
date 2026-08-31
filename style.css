@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main-container {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+
+.wheels-wrapper {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.wheel-card {
+    flex: 1;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.wheel-card h2 {
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 12px;
+}
+
+.wheel-box {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2980b9;
+    background: white;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 20px 10px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+button {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    background: #cbd5e1;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+#result-box {
+    margin-top: 25px;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+#result-box h3 {
+    font-size: 14px;
+    color: #065f46;
+    margin-bottom: 5px;
+}
+
+#result-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #047857;
+}
+
+.hidden {
+    display: none;
+}
